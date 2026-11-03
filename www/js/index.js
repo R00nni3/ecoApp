@@ -34,7 +34,7 @@ function guardarPerfil() {
     // Mostrar mensaje de éxito temporal
     const mensaje = document.getElementById('mensaje-guardado');
     mensaje.textContent = '¡Perfil y metas guardados con éxito! 🌿';
-    
+
     setTimeout(() => {
         mensaje.textContent = '';
     }, 3000);
@@ -54,6 +54,28 @@ function cargarPerfil() {
 }
 
 // Ejecutar la carga de datos apenas cargue la página
-window.onload = function() {
+window.onload = function () {
     cargarPerfil();
 };
+
+// Función para calcular el impacto de CO2 evitado
+function calcularImpacto() {
+    const botellas = parseFloat(document.getElementById('input-botellas').value) || 0;
+    const kmBici = parseFloat(document.getElementById('input-km-bici').value) || 0;
+
+    // Fórmulas estimadas de impacto ambiental:
+    // - Reciclar 1 botella evita aprox. 0.08 kg de CO2
+    // - Recorrer 1 km en bici en vez de auto evita aprox. 0.21 kg de CO2
+    const co2Botellas = botellas * 0.08;
+    const co2Bici = kmBici * 0.21;
+    const totalCo2Evitado = (co2Botellas + co2Bici).toFixed(2);
+
+    // Mostrar el contenedor de resultados
+    const contenedorResultado = document.getElementById('resultado-calculadora');
+    const textoCo2 = document.getElementById('texto-co2');
+    const textoResumen = document.getElementById('texto-resumen');
+
+    contenedorResultado.style.display = 'block';
+    textoCo2.innerHTML = `🌍 Has evitado la emisión de <strong>${totalCo2Evitado} kg de CO₂</strong> esta semana.`;
+    textoResumen.textContent = `¡Excelente trabajo! Tus ${botellas} botellas recicladas y ${kmBici} km en bicicleta están marcando la diferencia.`;
+}
