@@ -27,7 +27,7 @@ function mostrarConsejosEnInicio() {
     const contenedor = document.getElementById('contenedor-consejos');
     if (!contenedor) return;
 
-    contenedor.innerHTML = ''; // Limpiar por si acaso
+    contenedor.innerHTML = '';
 
     listaConsejos.forEach(consejo => {
         const tarjeta = document.createElement('div');
@@ -46,7 +46,7 @@ function mostrarConsejosEnInicio() {
     });
 }
 
-// Funciones de navegación entre vistas
+// Función de navegación entre vistas
 function cambiarVista(nombreVista) {
     const vistas = document.querySelectorAll('.view');
     vistas.forEach(vista => {
@@ -61,7 +61,7 @@ function cambiarVista(nombreVista) {
     }
 }
 
-// Funciones de perfil (localStorage)
+// Funciones de perfil 
 function guardarPerfil() {
     const nombre = document.getElementById('input-nombre').value;
     const meta = document.getElementById('input-meta').value;
@@ -75,7 +75,7 @@ function guardarPerfil() {
     localStorage.setItem('eco_meta', meta);
 
     const mensaje = document.getElementById('mensaje-guardado');
-    mensaje.textContent = '¡Perfil y metas guardados con éxito! 🌿';
+    mensaje.textContent = '¡Perfil y metas guardados con éxito!';
     setTimeout(() => { mensaje.textContent = ''; }, 3000);
 }
 
@@ -105,8 +105,27 @@ function calcularImpacto() {
     textoResumen.textContent = `¡Excelente trabajo! Tus ${botellas} botellas recicladas y ${kmBici} km en bicicleta están marcando la diferencia.`;
 }
 
+// Función para actualizar el progreso diario de actividades
+function actualizarProgreso() {
+    const checks = [
+        document.getElementById('check-bolsa').checked,
+        document.getElementById('check-luces').checked,
+        document.getElementById('check-ducha').checked,
+        document.getElementById('check-separar').checked
+    ];
+
+    const totalCompletadas = checks.filter(Boolean).length;
+    const porcentaje = Math.round((totalCompletadas / checks.length) * 100);
+
+    const textoProgreso = document.getElementById('texto-progreso');
+    if (textoProgreso) {
+        textoProgreso.textContent = `${totalCompletadas} de 4 actividades completadas (${porcentaje}%)`;
+    }
+}
+
 // Inicializar al cargar la página
 window.onload = function() {
     cargarPerfil();
     mostrarConsejosEnInicio();
+    actualizarProgreso();
 };
