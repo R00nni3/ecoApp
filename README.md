@@ -68,3 +68,18 @@ ecoApp/
 Rosario González Perucich
 
 Proyecto realizado para Programación de Aplicaciones Móviles I — IPChile. Docente José Arellano
+
+## 📷 Imágenes de las Vistas
+
+* **Página de inicio y Calculadora**
+ 
+<img width="354" height="763" alt="ecoapp1" src="https://github.com/user-attachments/assets/41c5c338-5034-4514-a2de-e46ffd2c203b" />
+<img width="352" height="762" alt="ecoapp2" src="https://github.com/user-attachments/assets/f4d9d92a-d8ba-480e-bc76-b63f94f3dd0a" />
+
+* **Actividades y Perfil**
+ 
+<img width="356" height="787" alt="ecoapp3" src="https://github.com/user-attachments/assets/12534f15-20da-4433-aeca-d719f84568a5" />
+<img width="355" height="766" alt="ecoapp4" src="https://github.com/user-attachments/assets/a8d2b67e-43a5-40e5-88e4-a394ab813671" />
+
+
+
