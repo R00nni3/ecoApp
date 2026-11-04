@@ -22,13 +22,12 @@ const listaConsejos = [
     }
 ];
 
-// Función para renderizar todos los consejos en la página de inicio
+// Función para renderizar los consejos en el inicio
 function mostrarConsejosEnInicio() {
     const contenedor = document.getElementById('contenedor-consejos');
     if (!contenedor) return;
 
     contenedor.innerHTML = '';
-
     listaConsejos.forEach(consejo => {
         const tarjeta = document.createElement('div');
         tarjeta.style.backgroundColor = '#e7f0b8';
@@ -41,12 +40,11 @@ function mostrarConsejosEnInicio() {
             <h3 style="margin-top: 0; color: #791698; font-size: 16px;">${consejo.titulo}</h3>
             <p style="margin-bottom: 0; font-size: 14px; color: #333;">${consejo.texto}</p>
         `;
-
         contenedor.appendChild(tarjeta);
     });
 }
 
-// Función de navegación entre vistas
+// Navegación entre vistas
 function cambiarVista(nombreVista) {
     const vistas = document.querySelectorAll('.view');
     vistas.forEach(vista => {
@@ -59,9 +57,14 @@ function cambiarVista(nombreVista) {
         vistaActiva.style.display = 'block';
         vistaActiva.classList.add('active');
     }
+    
+    // Si entramos al perfil, actualizamos el resumen en pantalla
+    if (nombreVista === 'perfil') {
+        actualizarResumenPerfil();
+    }
 }
 
-// Funciones de perfil 
+// Guardar Perfil
 function guardarPerfil() {
     const nombre = document.getElementById('input-nombre').value;
     const meta = document.getElementById('input-meta').value;
@@ -75,16 +78,72 @@ function guardarPerfil() {
     localStorage.setItem('eco_meta', meta);
 
     const mensaje = document.getElementById('mensaje-guardado');
-    mensaje.textContent = '¡Perfil y metas guardados con éxito!';
+    mensaje.textContent = '¡Perfil guardado con éxito! 🌿';
     setTimeout(() => { mensaje.textContent = ''; }, 3000);
+
+    actualizarResumenPerfil();
 }
 
-function cargarPerfil() {
+// Guardar Actividades de forma manual mediante el botón
+function guardarActividades() {
+    const checkBolsa = document.getElementById('check-bolsa').checked;
+    const checkLuces = document.getElementById('check-luces').checked;
+    const checkDucha = document.getElementById('check-ducha').checked;
+    const checkSeparar = document.getElementById('check-separar').checked;
+
+    // Almacenar en localStorage
+    localStorage.setItem('act_bolsa', checkBolsa);
+    localStorage.setItem('act_luces', checkLuces);
+    localStorage.setItem('act_ducha', checkDucha);
+    localStorage.setItem('act_separar', checkSeparar);
+
+    const mensaje = document.getElementById('mensaje-actividades');
+    mensaje.textContent = '¡Actividades guardadas correctamente! ✅';
+    setTimeout(() => { mensaje.textContent = ''; }, 3000);
+
+    actualizarResumenPerfil();
+}
+
+// Cargar datos guardados al iniciar la app
+function cargarDatosGuardados() {
+    // Perfil
     const nombreGuardado = localStorage.getItem('eco_nombre');
     const metaGuardada = localStorage.getItem('eco_meta');
 
     if (nombreGuardado) document.getElementById('input-nombre').value = nombreGuardado;
     if (metaGuardada) document.getElementById('input-meta').value = metaGuardada;
+
+    // Actividades (Checkboxes)
+    if (localStorage.getItem('act_bolsa') === 'true') document.getElementById('check-bolsa').checked = true;
+    if (localStorage.getItem('act_luces') === 'true') document.getElementById('check-luces').checked = true;
+    if (localStorage.getItem('act_ducha') === 'true') document.getElementById('check-ducha').checked = true;
+    if (localStorage.getItem('act_separar') === 'true') document.getElementById('check-separar').checked = true;
+
+    actualizarResumenPerfil();
+}
+
+// Actualizar el panel de resumen en el Perfil
+function actualizarResumenPerfil() {
+    const nombre = localStorage.getItem('eco_nombre') || 'Sin registrar';
+    const meta = localStorage.getItem('eco_meta') || 'Sin definir';
+
+    const checkBolsa = localStorage.getItem('act_bolsa') === 'true';
+    const checkLuces = localStorage.getItem('act_luces') === 'true';
+    const checkDucha = localStorage.getItem('act_ducha') === 'true';
+    const checkSeparar = localStorage.getItem('act_separar') === 'true';
+
+    const checks = [checkBolsa, checkLuces, checkDucha, checkSeparar];
+    const totalCompletadas = checks.filter(Boolean).length;
+    const porcentaje = Math.round((totalCompletadas / checks.length) * 100);
+
+    // Inyectar en el HTML de la vista de perfil
+    const elNombre = document.getElementById('resumen-nombre-usuario');
+    const elMeta = document.getElementById('resumen-meta-usuario');
+    const elActividades = document.getElementById('resumen-actividades-usuario');
+
+    if (elNombre) elNombre.innerHTML = `<strong>Usuario:</strong> ${nombre}`;
+    if (elMeta) elMeta.innerHTML = `<strong>Meta:</strong> ${meta}`;
+    if (elActividades) elActividades.innerHTML = `<strong>Actividades completadas:</strong> ${totalCompletadas} de 4 (${porcentaje}%)`;
 }
 
 // Función de la calculadora
@@ -105,27 +164,8 @@ function calcularImpacto() {
     textoResumen.textContent = `¡Excelente trabajo! Tus ${botellas} botellas recicladas y ${kmBici} km en bicicleta están marcando la diferencia.`;
 }
 
-// Función para actualizar el progreso diario de actividades
-function actualizarProgreso() {
-    const checks = [
-        document.getElementById('check-bolsa').checked,
-        document.getElementById('check-luces').checked,
-        document.getElementById('check-ducha').checked,
-        document.getElementById('check-separar').checked
-    ];
-
-    const totalCompletadas = checks.filter(Boolean).length;
-    const porcentaje = Math.round((totalCompletadas / checks.length) * 100);
-
-    const textoProgreso = document.getElementById('texto-progreso');
-    if (textoProgreso) {
-        textoProgreso.textContent = `${totalCompletadas} de 4 actividades completadas (${porcentaje}%)`;
-    }
-}
-
 // Inicializar al cargar la página
 window.onload = function() {
-    cargarPerfil();
+    cargarDatosGuardados();
     mostrarConsejosEnInicio();
-    actualizarProgreso();
 };

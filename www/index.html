@@ -3,26 +3,26 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <title>EcoApp</title>
+    <title>EcoApp Sostenible</title>
     <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
     <div id="app">
         <header>
-            <h1>EcoApp</h1>
+            <h1>EcoApp Sostenible 🌿</h1>
         </header>
         
         <main id="main-content">
             <!-- Vista de Inicio (Consejos) -->
             <section id="vista-inicio" class="view active">
-                <h2>Inicio</h2>
+                <h2>Inicio 🌿</h2>
                 <p>Bienvenido a tu app de hábitos ecológicos. Aquí tienes sugerencias clave para tu día a día:</p>
                 <div id="contenedor-consejos" style="margin-top: 15px;"></div>
             </section>
 
             <!-- Vista de Calculadora -->
             <section id="vista-calculadora" class="view" style="display: none;">
-                <h2>Calculadora de Impacto Ecológico</h2>
+                <h2>Calculadora de Impacto Ecológico ♻️</h2>
                 <p>Ingresa tus hábitos semanales para calcular tu impacto positivo en el medio ambiente.</p>
                 
                 <div class="form-group" style="margin-bottom: 15px;">
@@ -44,44 +44,42 @@
                 </div>
             </section>
 
-            <!-- Nueva Vista de Registro de Actividades -->
+            <!-- Vista de Registro de Actividades con Botón de Guardar -->
             <section id="vista-actividades" class="view" style="display: none;">
-                <h2>Registro de Actividades</h2>
-                <p>Marca las acciones ecológicas que completaste hoy para sumar puntos y mantener tus hábitos:</p>
+                <h2>Registro de Actividades 📝</h2>
+                <p>Selecciona las acciones ecológicas completadas hoy y guarda tu avance:</p>
                 
                 <div style="background-color: #e7f0b8; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
                     <label style="display: block; cursor: pointer; margin-bottom: 10px;">
-                        <input type="checkbox" id="check-bolsa" onchange="actualizarProgreso()" style="margin-right: 8px;"> 
+                        <input type="checkbox" id="check-bolsa" style="margin-right: 8px;"> 
                         Llevar bolsa reutilizable al hacer compras
                     </label>
                     <label style="display: block; cursor: pointer; margin-bottom: 10px;">
-                        <input type="checkbox" id="check-luces" onchange="actualizarProgreso()" style="margin-right: 8px;"> 
+                        <input type="checkbox" id="check-luces" style="margin-right: 8px;"> 
                         Apagar luces y dispositivos innecesarios
                     </label>
                     <label style="display: block; cursor: pointer; margin-bottom: 10px;">
-                        <input type="checkbox" id="check-ducha" onchange="actualizarProgreso()" style="margin-right: 8px;"> 
+                        <input type="checkbox" id="check-ducha" style="margin-right: 8px;"> 
                         Tomar ducha corta (menos de 5 minutos)
                     </label>
-                    <label style="display: block; cursor: pointer;">
-                        <input type="checkbox" id="check-separar" onchange="actualizarProgreso()" style="margin-right: 8px;"> 
+                    <label style="display: block; cursor: pointer; margin-bottom: 10px;">
+                        <input type="checkbox" id="check-separar" style="margin-right: 8px;"> 
                         Separar residuos y plásticos para reciclaje
                     </label>
                 </div>
 
-                <div style="padding: 15px; background-color: #dcedc8; border-radius: 8px; text-align: center;">
-                    <h3 style="margin-top: 0; color: #2e7d32;">Progreso Diario</h3>
-                    <p id="texto-progreso" style="font-weight: bold; font-size: 16px; margin-bottom: 0;">0 de 4 actividades completadas (0%)</p>
-                </div>
+                <button onclick="guardarActividades()" style="background-color: #2e7d32; color: white; border: none; padding: 10px 15px; cursor: pointer; border-radius: 4px; font-weight: bold; width: 100%;">Guardar Actividades</button>
+                <p id="mensaje-actividades" style="color: #2e7d32; margin-top: 10px; font-weight: bold; text-align: center;"></p>
             </section>
 
-            <!-- Vista de Perfil -->
+            <!-- Vista de Perfil y Resumen Unificado -->
             <section id="vista-perfil" class="view" style="display: none;">
-                <h2>Mi Perfil y Metas</h2>
-                <p>Personaliza tu información y establece tus objetivos ecológicos.</p>
+                <h2>Mi Perfil y Resumen 👤</h2>
+                <p>Personaliza tu información y revisa el estado de tus metas.</p>
                 
                 <div class="form-group" style="margin-bottom: 15px;">
                     <label for="input-nombre" style="display: block; margin-bottom: 5px; font-weight: bold;">Tu Nombre:</label>
-                    <input type="text" id="input-nombre" placeholder="Ej. Draco" style="width: 100%; padding: 8px; box-sizing: border-box;">
+                    <input type="text" id="input-nombre" placeholder="Ej. Rosario" style="width: 100%; padding: 8px; box-sizing: border-box;">
                 </div>
 
                 <div class="form-group" style="margin-bottom: 15px;">
@@ -90,12 +88,19 @@
                 </div>
 
                 <button onclick="guardarPerfil()" style="background-color: #2e7d32; color: white; border: none; padding: 10px 15px; cursor: pointer; border-radius: 4px; font-weight: bold;">Guardar Perfil</button>
-                
                 <p id="mensaje-guardado" style="color: #2e7d32; margin-top: 10px; font-weight: bold;"></p>
+
+                <!-- Panel de Resumen de Progreso Unificado -->
+                <div style="margin-top: 25px; padding: 15px; background-color: #e7f0b8; border-radius: 8px; border-left: 5px solid #791698;">
+                    <h3 style="margin-top: 0; color: #791698;">Resumen de tu Progreso</h3>
+                    <p id="resumen-nombre-usuario"><strong>Usuario:</strong> No registrado</p>
+                    <p id="resumen-meta-usuario"><strong>Meta:</strong> Sin definir</p>
+                    <p id="resumen-actividades-usuario"><strong>Actividades completadas:</strong> 0 de 4 (0%)</p>
+                </div>
             </section>
         </main>
 
-        <!-- Barra de navegación con el nuevo botón de Actividades -->
+        <!-- Barra de navegación -->
         <nav class="nav-bar">
             <button onclick="cambiarVista('inicio')">Inicio</button>
             <button onclick="cambiarVista('calculadora')">Calculadora</button>
