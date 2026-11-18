@@ -98,13 +98,68 @@
                     <p id="resumen-actividades-usuario"><strong>Actividades completadas:</strong> 0 de 4 (0%)</p>
                 </div>
             </section>
+
+            <!-- Vista de Sensores y Monitoreo -->
+            <section id="vista-sensores" class="view" style="display: none;">
+                <h2>Monitoreo Ambiental y Sensores</h2>
+                <p>Consulta condiciones ambientales en tiempo real y registra tus trayectos de movilidad.</p>
+                
+                <!-- Tarjetas de Sensores Ambientales (Servicio Web / JSON) -->
+                <div style="background-color: #e7f0b8; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                    <h3 style="color: #791698; margin-top: 0;">Clima y Entorno (API REST)</h3>
+                    <button onclick="obtenerDatosAmbientales()" class="btn-principal" style="margin-bottom: 12px;">Actualizar Sensores</button>
+                    
+                    <div style="display: flex; gap: 10px; justify-content: space-between; flex-wrap: wrap;">
+                        <div style="background: white; padding: 10px; border-radius: 6px; flex: 1; text-align: center; min-width: 90px;">
+                            <strong style="font-size: 12px; color: #555;">Temperatura</strong>
+                            <p id="temp-val" style="margin: 5px 0 0 0; font-size: 16px; font-weight: bold; color: #2e7d32;">-- °C</p>
+                        </div>
+                        <div style="background: white; padding: 10px; border-radius: 6px; flex: 1; text-align: center; min-width: 90px;">
+                            <strong style="font-size: 12px; color: #555;">Humedad</strong>
+                            <p id="hum-val" style="margin: 5px 0 0 0; font-size: 16px; font-weight: bold; color: #2e7d32;">-- %</p>
+                        </div>
+                        <div style="background: white; padding: 10px; border-radius: 6px; flex: 1; text-align: center; min-width: 90px;">
+                            <strong style="font-size: 12px; color: #555;">Luminosidad</strong>
+                            <p id="lum-val" style="margin: 5px 0 0 0; font-size: 16px; font-weight: bold; color: #2e7d32;">-- Lux</p>
+                        </div>
+                    </div>
+                    <div id="analisis-ecologico" style="margin-top: 10px; font-size: 13px; color: #333; background: #fff; padding: 8px; border-radius: 4px;">
+                        Haz clic en actualizar para analizar las condiciones.
+                    </div>
+                </div>
+
+                <!-- Tarjetas de Movilidad (Sensores del Dispositivo / GPS) -->
+                <div style="background-color: #e7f0b8; padding: 15px; border-radius: 8px;">
+                    <h3 style="color: #791698; margin-top: 0;">Movilidad y GPS</h3>
+                    <button onclick="iniciarMonitoreoMovilidad()" class="btn-principal" style="margin-bottom: 12px;">Registrar Trayecto (GPS)</button>
+                    
+                    <div style="display: flex; gap: 10px; justify-content: space-between; flex-wrap: wrap;">
+                        <div style="background: white; padding: 10px; border-radius: 6px; flex: 1; text-align: center; min-width: 90px;">
+                            <strong style="font-size: 12px; color: #555;">Caminata</strong>
+                            <p id="caminata-val" style="margin: 5px 0 0 0; font-size: 16px; font-weight: bold; color: #2e7d32;">0.0 km</p>
+                        </div>
+                        <div style="background: white; padding: 10px; border-radius: 6px; flex: 1; text-align: center; min-width: 90px;">
+                            <strong style="font-size: 12px; color: #555;">Bicicleta</strong>
+                            <p id="bici-val" style="margin: 5px 0 0 0; font-size: 16px; font-weight: bold; color: #2e7d32;">0.0 km</p>
+                        </div>
+                        <div style="background: white; padding: 10px; border-radius: 6px; flex: 1; text-align: center; min-width: 90px;">
+                            <strong style="font-size: 12px; color: #555;">CO₂ Evitado</strong>
+                            <p id="co2-val" style="margin: 5px 0 0 0; font-size: 16px; font-weight: bold; color: #2e7d32;">0 g</p>
+                        </div>
+                    </div>
+                    <div id="analisis-movilidad" style="margin-top: 10px; font-size: 13px; color: #333; background: #fff; padding: 8px; border-radius: 4px;">
+                        Haz clic en registrar trayecto para medir impacto con GPS.
+                    </div>
+                </div>
+            </section>
         </main>
 
         <!-- Barra de navegación -->
         <nav class="nav-bar">
             <button onclick="cambiarVista('inicio')">Inicio</button>
-            <button onclick="cambiarVista('calculadora')">Calculadora</button>
-            <button onclick="cambiarVista('actividades')">Actividades</button>
+            <button onclick="cambiarVista('calculadora')">Calc</button>
+            <button onclick="cambiarVista('actividades')">Act</button>
+            <button onclick="cambiarVista('sensores')">Sensores</button>
             <button onclick="cambiarVista('perfil')">Perfil</button>
         </nav>
     </div>
